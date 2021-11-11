@@ -17,7 +17,8 @@
 #include "freertos/task.h"
 #include "freertos/queue.h"
 
-#define LED 2
+
+#define LED 13
 
 QueueHandle_t xFila; /*cria objeto fila */
 
@@ -32,6 +33,11 @@ void vTask2(void *pvParameters );
 
 void app_main(void)
 {
+  gpio_reset_pin(LED);
+    /* Set the GPIO as a push/pull output */
+  gpio_set_direction(LED, GPIO_MODE_OUTPUT);
+  
+  
   BaseType_t xReturned;
 
   xFila = xQueueCreate(5, sizeof(int));  //Cria a fila com 5 slots com tamanho de um int

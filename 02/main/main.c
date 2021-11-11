@@ -78,7 +78,7 @@ void vTask2(void *pvParameters )
     printf("Task 2: %d\n",count++);
 
     /*Verifica valor do contador*/
-    if(count>=10) /*se maior ou igual a 10*/
+    if(count==10) /*se maior ou igual a 10*/
     {
         if(xTask1Handle != NULL)    /*verifica se o handle da task é diferente de NULL*/
         {
@@ -88,6 +88,20 @@ void vTask2(void *pvParameters )
           xTask1Handle = NULL;                /*atualiza valor da variável para NULL*/
         }
     }
+    
+    if(count==20) /*se maior ou igual a 10*/
+    {
+      xTaskCreate(
+      vTask1                     /* função da task*/   
+      ,  "Task1"                  /* Nome da Task */
+      ,  configMINIMAL_STACK_SIZE /* Stack Size */
+      ,  NULL                     /* parametro passado para a task*/
+      ,  1                        /* Prioridade da task*/
+      ,  &xTask1Handle             /* handle da task*/
+      );    
+      count = 0;
+    }
+
     vTaskDelay(pdMS_TO_TICKS(500));           /* Delay de 0.5 segundos */
   }
 }
